@@ -1,0 +1,94 @@
+.profileContainer{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    /* justify-content: space-around; */
+    height: 80vmin;
+    /* background-color: aqua; */
+}
+.dataContainer{
+    border: 1.5px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 2rem;
+}
+img{
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+}
+.imageCon{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.infoCon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+}
+.btnn{
+    /* height: 2rem; */
+    width: 9rem;
+    font-size: 1.5rem;
+    border-radius:1rem;
+    padding: 1rem;
+    border: 1.5px solid black;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.usersContainer{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem;
+}
+.userCon{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border: 1.5px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.user{
+    /* width: 15%; */
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    border: 1.5px solid black;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.btnDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.userbtn{
+    border: 1.5px solid black;
+    border-radius: 1rem;
+    width: 4rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}

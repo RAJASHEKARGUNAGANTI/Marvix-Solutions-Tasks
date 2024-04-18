@@ -1,0 +1,22 @@
+.navContainer{
+    /* background-color: antiquewhite; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* width: 91.8%; */
+    height: 3rem;
+    /* padding: 1rem  4rem 1rem 4rem; */
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1.5rem;
+}
+.links{
+    text-decoration: none;
+    color: black;
+    border: 1.5px solid black;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.links:hover{
+    background-color: rgba(57, 57, 57, 0.1);
+}

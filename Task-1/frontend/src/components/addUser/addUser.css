@@ -1,0 +1,15 @@
+.AddContainer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.inputdata{
+    height: 2.5rem;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 10px;
+    background-color: rgba(57, 57, 57, 0.1);
+}
