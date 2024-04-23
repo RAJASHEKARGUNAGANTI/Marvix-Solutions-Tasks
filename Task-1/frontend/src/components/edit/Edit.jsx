@@ -10,9 +10,11 @@ const Edit = () => {
         lastName:"",
         email:""
     }
+    
     const par  = useParams()
     const navigate = useNavigate()
     const [user, setUser] = useState(users);
+    const token = localStorage.getItem("jwtTocken");
 
     const handleChange =(e)=>{
         const {name,value} = e.target;
@@ -20,7 +22,9 @@ const Edit = () => {
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:3000/getuser/${par.id}`)
+        axios.get(`http://localhost:3000/getuser/${par.id}`,{headers:{
+          Authorization: `Bearer ${token}`}
+        })
         .then((response)=>{
           setUser(response.data.user);
         })
@@ -28,7 +32,7 @@ const Edit = () => {
       },[par.id])
       const submitHandler = async(e)=>{
         e.preventDefault();
-        await axios.post(`http://localhost:3000/update/${par.id}`,user)
+        await axios.post(`http://localhost:3000/update/${par.id}`,user,)
         .then((response)=>{
             alert(response.data.message);
             toast.success(response.data.message, {position: "top-right"});

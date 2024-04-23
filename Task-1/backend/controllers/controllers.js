@@ -2,9 +2,17 @@ import User from "../models/model.js"
 import ImageSchema from "../models/imageModel.js";
 import bcrypt from 'bcrypt'
 import { generateJWT } from "../auth.js";
+// import { validationResult } from 'express-validator';
+import {validationResult} from 'express-validator';
 
 export const register = async (req, res) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log("Fill all fields properly");
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const {firstName, lastName, email, password ,userType } = req.body;
         const existingUser = await User.findOne({email});
         if(existingUser){
@@ -16,7 +24,7 @@ export const register = async (req, res) => {
             const newUser = new User({firstName,lastName,email,password:hashedPassword ,userType});
             await newUser.save().then(() =>{
                 // console.log(newUser);
-                const jwtTocken = generateJWT(email);
+                const jwtTocken = generateJWT(email,newUser-{password});
                 res.status(200).json({message: "User successfully Registerd" , jwtTocken})
             })
         }
@@ -28,6 +36,13 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log("Fill all fields properly");
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const {email, password} = req.body;
         // console.log(email, password);
         const regUser = await User.findOne({email});
@@ -38,7 +53,8 @@ export const login = async (req, res) => {
         const validUser = await bcrypt.compare(password, regUser.password);
         if(validUser){
             console.log("Login Successfull")
-            const jwtTocken = generateJWT(email);
+            // const jwtTocken = generateJWT(email);
+            const jwtTocken = generateJWT(email,regUser-{password});
             return res.status(200).json({message:"Login Successfully",jwtTocken});
         }
     } catch (error) {
@@ -49,6 +65,11 @@ export const login = async (req, res) => {
 
 export const imageUpload = async (req, res)=>{
     try {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            console.log("Image Does not Selected");
+            return res.status(404).json({ errors: errors.array() });
+        }
         const {email, image} = req.body;
         const userExists = await ImageSchema.findOne({email});
         if(!userExists){
@@ -71,7 +92,7 @@ export const getUser = async (req,res)=>{
     try {
         const {email} = req.body;
         // console.log(email)
-        const userData = await User.findOne({email});
+        const userData = await User.findOne({email}) || "";
         // console.log(userData)
         return res.status(200).json({message:"User data retrived successfully", userData: userData});
     } catch (error) {
@@ -82,7 +103,7 @@ export const getUser = async (req,res)=>{
 export const getImage = async (req,res)=>{
     try {
         const {email} = req.body;
-        const imageData = await ImageSchema.findOne({email});
+        const imageData = await ImageSchema.findOne({email}) || "";
         return res.status(200).json({message:"Image data retrieved successfully", imageData});
     } catch (error) {
         return res.status(500).json({message:"Image data not retrieved", error: error.message});

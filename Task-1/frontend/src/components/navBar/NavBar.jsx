@@ -6,9 +6,9 @@ const NavBar = () => {
 
   const [email, setEmail] = useState("");
 
+  const token = localStorage.getItem("jwtTocken");
   useEffect(() => {
     // Retrieve token from local storage
-    const token = localStorage.getItem("jwtTocken");
 
     // Decode token to extract email
     const decodedToken = decodeToken(token);
@@ -33,7 +33,9 @@ const [LastName, setLastName] = useState();
 const [Image, setImage] = useState();
 const handleClick = async () => {
   console.log(email);
-  await axios.post("http://localhost:3000/getUser", {email}).then((response)=>{
+  await axios.post("http://localhost:3000/getUser", {email},{headers:{
+    Authorization: `Bearer ${token}`}
+  }).then((response)=>{
   // console.log(response);
   // console.log(response.data.userData.firstName);
   // const FirstName = response.data.userData.firstName;

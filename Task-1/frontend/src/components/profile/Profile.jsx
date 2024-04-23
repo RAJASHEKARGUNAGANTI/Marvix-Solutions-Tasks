@@ -27,10 +27,10 @@ import { useNavigate ,Link } from "react-router-dom";
     }
 
     const [email, setEmail] = useState("");
-
+   
+    const token = localStorage.getItem("jwtTocken");
   useEffect(() => {
     // Retrieve token from local storage
-    const token = localStorage.getItem("jwtTocken");
 
     // Decode token to extract email
     const decodedToken = decodeToken(token);
@@ -53,13 +53,13 @@ const decodeToken = (token) => {
 
 const handleUpload = (e)=>{
   e.preventDefault();
-  console.log(e);
-  console.log(email)
-  console.log(image)
+  // console.log(e);
+  // console.log(email)
+  // console.log(image)
   axios.post("http://localhost:3000/imageUpload", {email:email, image:image}).then((response)=>{
     alert(response.data.message);
     console.log("Image Uploaded");
-
+    fetchdata();
   }).catch((error)=>{
     console.log(error);
   })
@@ -73,22 +73,18 @@ const [Image, setPImage] = useState();
 const [allUsersData, setAllUsersData] = useState([]);
 
   async function fetchdata(){
+    
 
-    await axios.post("http://localhost:3000/getUser", {email}).then((response)=>{
+    await axios.post("http://localhost:3000/getUser", {email},{headers:{
+      Authorization: `Bearer ${token}`}
+    }).then((response)=>{
       // console.log(response)
       setfName(response.data.userData.firstName);
       setlName(response.data.userData.lastName)
       setuserType(response.data.userData.userType);
-      // const fName = response.data.userData.firstName;
-      // const lName = response.data.userData.lastName;
     })
     await axios.post("http://localhost:3000/getImage",{email}).then((response)=>{
       setPImage(response.data.imageData.image);
-      // console.log(Image)
-      // console.log(image)
-      // if(userType === "admin"){
-      //   fetchAllUsersData
-      // }
     
    })
   }
