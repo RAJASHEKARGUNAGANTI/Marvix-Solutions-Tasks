@@ -98,6 +98,7 @@ const handelReg =(e) =>{
     if(sKey !=="Admin123"){
       alert("Please enter Correct Secret Key");
     }else{
+      setRegData({userType : "admin"})
       axios.post("http://localhost:3000/register", regData).then((response)=>{
     console.log("Registration Success");
     navigation("/")

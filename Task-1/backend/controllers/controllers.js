@@ -24,7 +24,7 @@ export const register = async (req, res) => {
             const newUser = new User({firstName,lastName,email,password:hashedPassword ,userType});
             await newUser.save().then(() =>{
                 // console.log(newUser);
-                const jwtTocken = generateJWT(email,newUser-{password});
+                const jwtTocken = generateJWT(email,newUser);
                 res.status(200).json({message: "User successfully Registerd" , jwtTocken})
             })
         }
@@ -54,7 +54,7 @@ export const login = async (req, res) => {
         if(validUser){
             console.log("Login Successfull")
             // const jwtTocken = generateJWT(email);
-            const jwtTocken = generateJWT(email,regUser-{password});
+            const jwtTocken = generateJWT(email,regUser);
             return res.status(200).json({message:"Login Successfully",jwtTocken});
         }
     } catch (error) {
@@ -156,5 +156,22 @@ export const getuser = async (req, res) => {
         res.status(200).json({user});
     } catch (error) {
         res.status(500).json({error: "Internal error to get user"});    
+    }
+}
+
+export const search = async (req, res) => {
+    try {
+        const {query} = req.query;
+        const searchUserdata = await User.find({ 
+            $or: [
+              { firstName: { $regex: query, $options: 'i' } },
+              { lastName: { $regex: query, $options: 'i' } },
+              { email: { $regex: query, $options: 'i' } },
+              { userType: { $regex: query, $options: 'i' } }
+            ]
+          });
+          return res.json(searchUserdata)
+    } catch (error) {
+        res.status(500).json({error: "Internal error to search data"});
     }
 }

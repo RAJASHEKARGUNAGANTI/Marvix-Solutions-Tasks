@@ -1,5 +1,5 @@
 import express from 'express';
-import {register, login, imageUpload , getImage, getUser ,allUsers,deleteuser,update,getuser} from "../controllers/controllers.js"
+import {register, login, imageUpload , getImage, getUser ,allUsers,deleteuser,update,getuser, search} from "../controllers/controllers.js"
 import { authenticateToken } from '../authenticateToken.js';
 import { loginValidationRules, registerValidationRules } from '../validators.js';
 
@@ -14,5 +14,6 @@ route.get("/allUsers", allUsers)
 route.get("/getuser/:id", authenticateToken, getuser)
 route.post("/update/:id", authenticateToken, update)
 route.delete("/deleteuser/:id", deleteuser)
+route.get("/search" , search )
 
 export default route;

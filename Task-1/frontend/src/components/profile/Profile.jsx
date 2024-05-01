@@ -27,6 +27,7 @@ import { useNavigate ,Link } from "react-router-dom";
     }
 
     const [email, setEmail] = useState("");
+    const [authUserType , setAuthUserType] = useState("")
    
     const token = localStorage.getItem("jwtTocken");
   useEffect(() => {
@@ -35,8 +36,12 @@ import { useNavigate ,Link } from "react-router-dom";
     // Decode token to extract email
     const decodedToken = decodeToken(token);
 
+    setAuthUserType(decodedToken.role);
+    // console.log(decodedToken);
+    // console.log(authUserType);
     // Set email in state
     setEmail(decodedToken.userEmail);
+    console.log(email);
     
   }, []);
 
@@ -71,6 +76,7 @@ const [lName , setlName] = useState();
 const [userType, setuserType] = useState();
 const [Image, setPImage] = useState();
 const [allUsersData, setAllUsersData] = useState([]);
+const [searchUsersData, setSearchUsersData] = useState([]);
 
   async function fetchdata(){
     
@@ -114,6 +120,15 @@ const [allUsersData, setAllUsersData] = useState([]);
   const [search, setSearch] = useState("");
 
 
+  // search from backend
+  const searchUsers = async ()=>{
+    await axios.get(`http://localhost:3000/search?query=${search}`).then((response) => {
+      // console.log(response.data);
+      setSearchUsersData(response.data);
+      // console.log(searchUsersData);
+    });
+  }
+
 
     return (
       <div className="profileContainer">
@@ -131,21 +146,29 @@ const [allUsersData, setAllUsersData] = useState([]);
       <button className="btnn" onClick={handleLogout}>LogOut</button>
       </div>
       </div>
-      {userType === 'admin' &&(
+
+      {authUserType === 'admin' &&(
         <div className="usersContainer">
         <div className="btnDiv" >
         <button onClick={fetchAllUsersData} className="btnn">All Users</button>
         <Link to={"/AddUser"} className="btnn">Add User</Link>
-        <input className="inputdata" placeholder="Search Content" onChange={(e)=> setSearch(e.target.value)}/>
+        <input className="inputdata" placeholder="Search Content" onChange={(e)=> {
+          setSearch(e.target.value);
+          searchUsers();
+        }}/>
         </div>
         <div className="userCon">
-        {allUsersData.filter(user => {
-          if (search.trim() === '') {
-            return true; 
-          } else {
-            return user.firstName.toLowerCase().includes(search.toLowerCase());
-          }
-        }).map(user =>{
+        {
+          (search === "" ? allUsersData : searchUsersData)
+        //   .filter((user) => {
+        //   if (search.trim() === '') {
+        //     return true; 
+        //   } else {
+        //     // return searchUsersData;
+        //     return user.firstName.toLowerCase().includes(search.toLowerCase());
+        //   }
+        // })
+        .map(user =>{
           return(
             <div key={user._id} className="user" >
             <p>First Name: {user.firstName}</p>
