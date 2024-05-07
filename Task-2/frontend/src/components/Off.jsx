@@ -1,7 +1,7 @@
 
 const Off = () => {
   return (
-    <div className='flex items-center justify-between bg-blue-800 px-40 my-6'>
+    <div className='flex flex-wrap items-center justify-center bg-blue-800 px-40 my-6'>
     <div>
     <p className='flex flex-col'>
     <span className='text-5xl text-white'>Up to</span> 

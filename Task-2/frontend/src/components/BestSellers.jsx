@@ -4,7 +4,7 @@ const BestSellers = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-6 px-32">
     <h1 className="text-4xl m-5 font-semibold">Best Sellers</h1>
-    <div className="grid grid-cols-4 mt-10">
+    <div className="lg:flex lg:flex-wrap items-center justify-center mt-10">
     {
         products.map((product,i) =>{
             return <ProductCard key={i} name={product.name} image={product.image} ratings={product.ratings} actual_price={product.actual_price} discount_price={product.discount_price}/>

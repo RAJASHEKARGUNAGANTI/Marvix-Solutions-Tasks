@@ -10,11 +10,11 @@ const Category = () => {
   return (
     <div className=" flex flex-col items-center justify-center ">
       <h1 className=" text-4xl m-3 font-semibold">Shop by Category</h1>
-      <div className="flex gap-6">
+      <div className=" lg:flex lg:gap-6">
         {images.map((image, i) => {
           return (
             <div key={i} className="flex flex-col items-center justify-center">
-              <img className=" w-60" src={image} />
+              <img className=" lg:w-60 md:w-64 sm:w-80 " src={image} />
               <p className=" font-medium text-xl underline">{names[i]}</p>
             </div>
           );

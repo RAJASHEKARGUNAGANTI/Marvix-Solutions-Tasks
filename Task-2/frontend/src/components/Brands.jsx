@@ -3,12 +3,12 @@ const Brands = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl m-5 font-semibold">Featured Brands</h1>
-      <div className="flex mt-6">
+      <div className="lg:flex mt-6 ">
         {brands.map((brand, i) => {
-          return <img className="w-60" key={i} src={brand} alt={brand} />;
+          return <img className="w-60 lg:w-56 " key={i} src={brand} alt={brand} />;
         })}
       </div>
-      <div className="grid grid-cols-2 gap-12 p-20">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-12 p-20 md:flex md:flex-col md:gap-6 ">
         <div className="row-span-2">
           <img
             className="w-full"
@@ -26,7 +26,7 @@ const Brands = () => {
         <div className="row-span-2">
           <iframe
             title="Google Map"
-            width="800"
+            width="700"
             height="450"
             style={{ border: 0 }}
             loading="lazy"
@@ -35,8 +35,8 @@ const Brands = () => {
             allow="fullscreen"
           ></iframe>
         </div>
-        <div className="row-span-2">
-          <div className="w-96 pl-32">
+        <div className="row-span-2 mx-8">
+          <div className="w-96 pl-32 ">
             <h1 className="text-6xl m-5">We can accept</h1>
             <img
               className="w-full"
